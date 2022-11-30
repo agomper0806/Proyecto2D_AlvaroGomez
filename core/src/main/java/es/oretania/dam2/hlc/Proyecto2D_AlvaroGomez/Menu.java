@@ -13,7 +13,7 @@ public class Menu extends ScreenAdapter {
 
     public Menu(ImpossibleGame game) {
         this.game = game;
-        stage = new Stage(new ScreenViewport());
+        //stage = new Stage(new ScreenViewport());
         TextButton btnFacil = new TextButton("Impossible Game", game.gameSkin, "default");
         btnFacil.setWidth(Gdx.graphics.getWidth() / 2);
         btnFacil.setPosition(
