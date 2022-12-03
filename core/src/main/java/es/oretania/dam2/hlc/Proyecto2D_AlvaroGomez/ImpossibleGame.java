@@ -20,7 +20,6 @@ public class ImpossibleGame extends Game {
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         gameSkin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
-
         setScreen(new Menu(this));
     }
 
