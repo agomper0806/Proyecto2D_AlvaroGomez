@@ -52,6 +52,8 @@ public class PantallaDeJuego extends ScreenAdapter {
         int tileHeight = propiedades.get("tileheight", Integer.class);
         int mapWidthInTiles = propiedades.get("width", Integer.class);
         int mapHeightInTiles = propiedades.get("height", Integer.class);
+        Jugador.mapWidthInPixels = mapWidthInTiles * tileWidth;
+        Jugador.mapHeightInPixels = mapHeightInTiles * tileHeight;
 
         mapRenderer = new OrthogonalTiledMapRenderer(mapa);
     }
@@ -60,9 +62,28 @@ public class PantallaDeJuego extends ScreenAdapter {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (Jugador.offsetX < 0) Jugador.offsetX = 0;
+        if (Jugador.offsetY > 0) Jugador.offsetY = 0;
+        if (Jugador.offsetX > Jugador.mapWidthInPixels - Jugador.camera.viewportWidth)
+            Jugador.offsetX = Jugador.mapWidthInPixels - Jugador.camera.viewportWidth;
+        if (Jugador.offsetY < -Jugador.mapHeightInPixels + Jugador.camera.viewportHeight)
+            Jugador.offsetY = -Jugador.mapHeightInPixels + Jugador.camera.viewportHeight;
+        Jugador.camera.position.x = Jugador.camera.viewportWidth / 2 + Jugador.offsetX;
+        Jugador.camera.position.y = Jugador.mapHeightInPixels - Jugador.camera.viewportHeight / 2 + Jugador.offsetY;
+        Jugador.camera.update();
+        mapRenderer.setView(Jugador.camera);
         mapRenderer.render();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        Jugador.camera.setToOrtho(false, width, height);
+        Jugador.camera.position.x = Jugador.camera.viewportWidth / 2 + Jugador.offsetX;
+        Jugador.camera.position.y = Jugador.mapHeightInPixels - Jugador.camera.viewportHeight / 2 + Jugador.offsetY;
+        Jugador.camera.update();
     }
 
     @Override
