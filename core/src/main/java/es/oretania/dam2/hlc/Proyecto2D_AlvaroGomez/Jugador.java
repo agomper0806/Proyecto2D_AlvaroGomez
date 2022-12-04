@@ -38,7 +38,6 @@ public class Jugador extends Actor {
         imagen = new Texture(Gdx.files.internal("Jugador.png"));
         this.mapa = mapa;
         obstaculos = (TiledMapTileLayer) mapa.getLayers().get("Paredes");
-
         posicion = mapa.getLayers().get("Posicion");
         inicio = posicion.getObjects().get("Inicio");
         setX(inicio.getProperties().get("x", Float.class));

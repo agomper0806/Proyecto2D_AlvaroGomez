@@ -24,6 +24,7 @@ public class PantallaDeJuego extends ScreenAdapter {
     Stage stage;
     TiledMap mapa;
     Actor jugador;
+    Actor enemigo1, enemigo2, enemigo3, enemigo4;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
@@ -35,10 +36,15 @@ public class PantallaDeJuego extends ScreenAdapter {
     public PantallaDeJuego(ImpossibleGame game, int dificultad){
         this.dificultad = dificultad;
         this.game = game;
+        stage = new Stage();
 
         switch (dificultad){
             case 0:
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
+                enemigo1 = new Enemigo(300, 300, 1);
+                stage.addActor(enemigo1);
+                enemigo2 = new Enemigo(500, 400, 2);
+                stage.addActor(enemigo2);
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
@@ -60,12 +66,10 @@ public class PantallaDeJuego extends ScreenAdapter {
         offsetX = 0;
         offsetY = 0;
 
-        stage = new Stage();
         jugador = new Jugador(mapa);
         stage.addActor(jugador);
-        Gdx.input.setInputProcessor(stage);
         stage.setKeyboardFocus(jugador);
-
+        Gdx.input.setInputProcessor(stage);
         camera.setToOrtho(false, 640, 480);
         viewport = new ScreenViewport(camera);
         stage.setViewport(viewport);
