@@ -9,9 +9,11 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Jugador extends Actor {
 
@@ -26,24 +28,25 @@ public class Jugador extends Actor {
     VerticalMovement verticalMovement;
     TiledMap mapa;
     TiledMapTileLayer obstaculos;
+    MapLayer posicion;
+    MapObject inicio;
+    Stage stage;
 
     public Jugador(TiledMap mapa) {
 
+        stage = new Stage();
         imagen = new Texture(Gdx.files.internal("Jugador.png"));
         this.mapa = mapa;
         obstaculos = (TiledMapTileLayer) mapa.getLayers().get("Paredes");
 
-        MapLayer posicion = mapa.getLayers().get("Posicion");
-        MapObject inicio = posicion.getObjects().get("Inicio");
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 640, 480);
-        setPosition((camera.viewportWidth - 24) / 2, (camera.viewportHeight - 32) / 2);
-        camera.position.set(
-                getX() + inicio.getProperties().get("x", Float.class),
-                getY() + inicio.getProperties().get("y", Float.class),
-                0);
-        offsetX = inicio.getProperties().get("x", Float.class) - 308;
-        offsetY = inicio.getProperties().get("y", Float.class) - 224;
+        posicion = mapa.getLayers().get("Posicion");
+        inicio = posicion.getObjects().get("Inicio");
+        setX(inicio.getProperties().get("x", Float.class));
+        setY(inicio.getProperties().get("y", Float.class));
+        offsetX = 0;
+        offsetY = 0;
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
         addListener(new JugadorInputListener());
     }
 
@@ -54,37 +57,36 @@ public class Jugador extends Actor {
 
     @Override
     public void act(float delta) {
-        TiledMapTileLayer.Cell cell1 = obstaculos.getCell(Math.round(getX()) / 32, Math.round(getY()) / 32);
+        TiledMapTileLayer.Cell celda;
         if (verticalMovement == VerticalMovement.UP) {
-            this.moveBy(0, 100 * delta);
-            if (cell1 != null) {
-                this.moveBy(0, -100 * delta);
+            celda = obstaculos.getCell(MathUtils.round(getX()) / 32 , MathUtils.round(getY() + 1) / 32);
+            if (celda == null) {
+                this.moveBy(0, 150 * delta);
             }
         }
+
         if (verticalMovement == VerticalMovement.DOWN) {
-            this.moveBy(0, -100 * delta);
-            if (cell1 != null) {
-                this.moveBy(0, 100 * delta);
+            celda = obstaculos.getCell(MathUtils.round(getX()) / 32 , MathUtils.round(getY() - 1) / 32);
+            if (celda == null) {
+                this.moveBy(0, -150 * delta);
             }
+
         }
+
         if (horizontalMovement == HorizontalMovement.LEFT) {
-            this.moveBy(-100 * delta, 0);
-            offsetX -= 100 * Gdx.graphics.getDeltaTime();
-            if (cell1 != null) {
-                this.moveBy(100 * delta, 0);
-                offsetX += 100 * Gdx.graphics.getDeltaTime();
+            celda = obstaculos.getCell(MathUtils.round(getX() - 1) / 32 , MathUtils.round(getY()) / 32);
+            if (celda == null) {
+                this.moveBy(-150 * delta, 0);
             }
         }
+
+
         if (horizontalMovement == HorizontalMovement.RIGHT) {
-            this.moveBy(100 * delta, 0);
-            if (cell1 != null) {
-                this.moveBy(-100 * delta, 0);
+            celda = obstaculos.getCell(MathUtils.round(getX() + 1) / 32 , MathUtils.round(getY()) / 32);
+            if(celda == null) {
+                this.moveBy(150 * delta, 0);
             }
         }
-        if (getX() < 0) setX(0);
-        if (getY() < 0) setY(0);
-        if (getX() >= 799 - getWidth()) setX(799 - getWidth());
-        if (getY() >= 479 - getHeight()) setY(479 - getHeight());
     }
 
     class JugadorInputListener extends InputListener {
