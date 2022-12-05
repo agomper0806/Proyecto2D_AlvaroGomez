@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,13 +19,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Jugador extends Actor {
 
-    Texture imagen;
-    public static OrthographicCamera camera;
+    private Texture imageJugador;
     public static float offsetX, offsetY;
     enum VerticalMovement {UP, NONE, DOWN};
     enum HorizontalMovement {LEFT, NONE, RIGHT};
-    static int mapWidthInPixels;
-    static int mapHeightInPixels;;
+    public float inicioX, inicioY;
     HorizontalMovement horizontalMovement;
     VerticalMovement verticalMovement;
     TiledMap mapa;
@@ -40,18 +39,19 @@ public class Jugador extends Actor {
 
 
     public Jugador(TiledMap mapa) {
-
-
-        stage = new Stage();
-        imagen = new Texture(Gdx.files.internal("Jugador.png"));
-        jugadorWidth = imagen.getWidth();
-        jugadorHeight = imagen.getHeight();
         this.mapa = mapa;
+        stage = new Stage();
+        imageJugador = new Texture(Gdx.files.internal("Jugador.png"));
+        jugadorWidth = imageJugador.getWidth();
+        jugadorHeight = imageJugador.getHeight();
         obstaculos = (TiledMapTileLayer) mapa.getLayers().get("Paredes");
         posicion = mapa.getLayers().get("Posicion");
         inicio = posicion.getObjects().get("Inicio");
-        setX(inicio.getProperties().get("x", Float.class));
-        setY(inicio.getProperties().get("y", Float.class));
+        inicioX = inicio.getProperties().get("x", Float.class);
+        inicioY = inicio.getProperties().get("y", Float.class);
+        //Size importante, si no no colisionan
+        setSize(jugadorWidth, jugadorHeight);
+        setPosition(inicioX, inicioY);
         offsetX = 0;
         offsetY = 0;
         stage.act(Gdx.graphics.getDeltaTime());
@@ -61,7 +61,7 @@ public class Jugador extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(imagen, getX(), getY());
+        batch.draw(imageJugador, getX(), getY());
     }
 
     @Override
@@ -159,5 +159,4 @@ public class Jugador extends Actor {
     public Rectangle getShape() {
         return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
-
 }

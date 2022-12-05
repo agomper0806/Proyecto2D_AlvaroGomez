@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 
 public class PantallaDeJuego extends ScreenAdapter {
 
@@ -23,8 +25,9 @@ public class PantallaDeJuego extends ScreenAdapter {
     private Screen juego;
     Stage stage;
     TiledMap mapa;
-    Actor jugador;
-    Actor enemigo1, enemigo2, enemigo3, enemigo4;
+    Jugador jugador;
+    Enemigo enemigo1, enemigo2, enemigo3, enemigo4;
+    Actor manager1, manager2;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
@@ -41,10 +44,24 @@ public class PantallaDeJuego extends ScreenAdapter {
         switch (dificultad){
             case 0:
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
+
+                jugador = new Jugador(mapa);
+                jugador.toFront();
+                stage.addActor(jugador);
+
+                Gdx.input.setInputProcessor(stage);
+                stage.setKeyboardFocus(jugador);
+
                 enemigo1 = new Enemigo(300, 300, 1);
-                stage.addActor(enemigo1);
                 enemigo2 = new Enemigo(500, 400, 2);
+                stage.addActor(enemigo1);
                 stage.addActor(enemigo2);
+
+                manager1 = new Manager(jugador, enemigo1);
+                manager2 = new Manager(jugador, enemigo2);
+                stage.addActor(manager1);
+                stage.addActor(manager2);
+
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
@@ -66,18 +83,9 @@ public class PantallaDeJuego extends ScreenAdapter {
         offsetX = 0;
         offsetY = 0;
 
-        jugador = new Jugador(mapa);
-        stage.addActor(jugador);
-        stage.setKeyboardFocus(jugador);
-        Gdx.input.setInputProcessor(stage);
         camera.setToOrtho(false, 640, 480);
         viewport = new ScreenViewport(camera);
         stage.setViewport(viewport);
-    }
-
-    @Override
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

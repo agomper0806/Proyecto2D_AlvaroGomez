@@ -3,8 +3,10 @@ package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
@@ -12,12 +14,14 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 
 public class Enemigo extends Actor {
 
-    public Texture imageEnemigo;
+    private Texture imageEnemigo;
     private int codigoEnemigo;
 
     public Enemigo(float x, float y, int codigoEnemigo){
         this.codigoEnemigo = codigoEnemigo;
         imageEnemigo = new Texture(Gdx.files.internal("Enemigo.png"));
+        //Size importante, si no no colisionan
+        setSize(imageEnemigo.getWidth(), imageEnemigo.getHeight());
         setPosition(x - getWidth() / 2, y - getHeight() / 2);
 
         switch (codigoEnemigo){
@@ -72,7 +76,7 @@ public class Enemigo extends Actor {
         if (getY() >= 479 - getHeight()) setY(479 - getHeight());
     }
 
-    public Circle getShape(){
-        return new Circle(getX(), getY(), getRotation());
+    public Rectangle getShape() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 }
