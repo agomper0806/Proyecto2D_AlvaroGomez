@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -32,10 +33,19 @@ public class Jugador extends Actor {
     MapObject inicio;
     Stage stage;
 
+    TiledMapTileLayer.Cell cell1, cell2, cell3, cell4;
+    int baseIzqX, baseIzqY, baseDerX, baseDerY, baseArribaIzqX, baseArribaIzqY, baseArribaDerX, baseArribaDerY;
+    int jugadorWidth, jugadorHeight, tileWidth = 32, tileHeight = 32;
+    float ultX, ultY;
+
+
     public Jugador(TiledMap mapa) {
+
 
         stage = new Stage();
         imagen = new Texture(Gdx.files.internal("Jugador.png"));
+        jugadorWidth = imagen.getWidth();
+        jugadorHeight = imagen.getHeight();
         this.mapa = mapa;
         obstaculos = (TiledMapTileLayer) mapa.getLayers().get("Paredes");
         posicion = mapa.getLayers().get("Posicion");
@@ -56,35 +66,44 @@ public class Jugador extends Actor {
 
     @Override
     public void act(float delta) {
-        TiledMapTileLayer.Cell celda;
+        super.act(delta);
+
+        ultX = getX();
+        ultY = getY();
+
         if (verticalMovement == VerticalMovement.UP) {
-            celda = obstaculos.getCell(MathUtils.round(getX()) / 32 , MathUtils.round(getY() + 1) / 32);
-            if (celda == null) {
-                this.moveBy(0, 150 * delta);
-            }
+            this.moveBy(0, 150 * delta);
         }
-
         if (verticalMovement == VerticalMovement.DOWN) {
-            celda = obstaculos.getCell(MathUtils.round(getX()) / 32 , MathUtils.round(getY() - 1) / 32);
-            if (celda == null) {
-                this.moveBy(0, -150 * delta);
-            }
-
+            this.moveBy(0, -150 * delta);
         }
-
         if (horizontalMovement == HorizontalMovement.LEFT) {
-            celda = obstaculos.getCell(MathUtils.round(getX() - 1) / 32 , MathUtils.round(getY()) / 32);
-            if (celda == null) {
-                this.moveBy(-150 * delta, 0);
-            }
+            this.moveBy(-150 * delta, 0);
+        }
+        if (horizontalMovement == HorizontalMovement.RIGHT) {
+            this.moveBy(150 * delta, 0);
         }
 
+        //COORDENADA ABAJO IZQUIERDA
+        baseIzqX = (int) getX() / tileWidth;
+        baseIzqY = (int) getY() / tileHeight;
+        //COORDENADA ABAJO DERECHA
+        baseDerX = (int) (getX() + jugadorWidth) / tileWidth;
+        baseDerY = (int) getY() / tileHeight;
+        //COORDENADA ARRIBA IZQUIERDA
+        baseArribaIzqX = (int) getX() / tileWidth;
+        baseArribaIzqY = (int) (getY() + jugadorHeight) / tileHeight;
+        //COORDENADA ARRIBA DERECHA
+        baseArribaDerX = (int) (getX() + jugadorWidth) / tileWidth;
+        baseArribaDerY = (int) (getY() + jugadorHeight) / tileHeight;
 
-        if (horizontalMovement == HorizontalMovement.RIGHT) {
-            celda = obstaculos.getCell(MathUtils.round(getX() + 1) / 32 , MathUtils.round(getY()) / 32);
-            if(celda == null) {
-                this.moveBy(150 * delta, 0);
-            }
+        cell1 = obstaculos.getCell(baseIzqX, baseIzqY);
+        cell2 = obstaculos.getCell(baseDerX, baseDerY);
+        cell3 = obstaculos.getCell(baseArribaIzqX, baseArribaIzqY);
+        cell4 = obstaculos.getCell(baseArribaDerX, baseArribaDerY);
+
+        if (cell1 != null || cell2 != null || cell3!= null || cell4!=null) {
+            setPosition(ultX, ultY);
         }
     }
 
@@ -136,4 +155,9 @@ public class Jugador extends Actor {
             return true;
         }
     }
+
+    public Rectangle getShape() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    }
+
 }

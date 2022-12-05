@@ -3,6 +3,7 @@ package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -71,4 +72,7 @@ public class Enemigo extends Actor {
         if (getY() >= 479 - getHeight()) setY(479 - getHeight());
     }
 
+    public Circle getShape(){
+        return new Circle(getX(), getY(), getRotation());
+    }
 }

@@ -86,19 +86,16 @@ public class PantallaDeJuego extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
 
-        if (jugador.getX() > (offsetX + camera.viewportWidth) * 0.9) {
+        if (jugador.getX() > (offsetX + camera.viewportWidth) * 0.8) {
             offsetX += 150 * delta;
         }
-
-        if (jugador.getX() < (offsetX + 0.1 * camera.viewportWidth)) {
+        if (jugador.getX() < (offsetX + 0.2 * camera.viewportWidth)) {
             offsetX -= 150 * delta;
         }
-
-        if (jugador.getY() - mapHeightInPixels + camera.viewportHeight > (offsetY + camera.viewportHeight - jugador.getHeight()) * 0.9) {
+        if (jugador.getY() - mapHeightInPixels + camera.viewportHeight + jugador.getHeight() > (offsetY + camera.viewportHeight) *0.2) {
             offsetY += 150 * delta;
         }
-
-        if (jugador.getY() - mapHeightInPixels + camera.viewportHeight < (offsetY + 0.1 * camera.viewportHeight)) {
+        if (jugador.getY()- mapHeightInPixels + camera.viewportHeight < (offsetY + 0.2 * camera.viewportHeight)) {
             offsetY -= 150 * delta;
         }
 
