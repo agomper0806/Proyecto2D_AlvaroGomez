@@ -19,7 +19,7 @@ public class ManagerMeta extends Actor {
         super.act(delta);
         if(Intersector.overlaps(jugador.getShape(), meta.getShape())) {
             if(jugador.contadorMonedas == jugador.numMonedas){
-                PantallaDeJuego.dentroMeta = 1;
+                jugador.dentroMeta = true;
             }
         }
     }

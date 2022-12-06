@@ -1,8 +1,6 @@
 package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,9 +18,9 @@ public class PantallaDeJuego extends ScreenAdapter {
 
     private Menu menu;
     private ImpossibleGame game;
+    public static String nick;
     private int dificultad;
     public static Sound golpeMuerte;
-    public static int dentroMeta = 0;
     Stage stage;
     TiledMap mapa;
     Jugador jugador;
@@ -41,9 +39,10 @@ public class PantallaDeJuego extends ScreenAdapter {
     private int mapHeightInPixels;
 
 
-    public PantallaDeJuego(ImpossibleGame game, int dificultad){
+    public PantallaDeJuego(ImpossibleGame game, int dificultad, String nick){
         this.dificultad = dificultad;
         this.game = game;
+        this.nick = nick;
         stage = new Stage();
         golpeMuerte = Gdx.audio.newSound(Gdx.files.internal("golpeMuerte.mp3"));
 
@@ -52,7 +51,7 @@ public class PantallaDeJuego extends ScreenAdapter {
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
                 int numMonedas = 2;
                 //Añadir jugador
-                jugador = new Jugador(mapa, numMonedas);
+                jugador = new Jugador(mapa, numMonedas, game);
                 stage.addActor(jugador);
                 Gdx.input.setInputProcessor(stage);
                 stage.setKeyboardFocus(jugador);
@@ -89,6 +88,7 @@ public class PantallaDeJuego extends ScreenAdapter {
                 stage.addActor(meta);
                 //Añadir manager jugador-meta
                 manMeta = new ManagerMeta(jugador, meta);
+                stage.addActor(manMeta);
                 jugador.toFront();
                 break;
             case 1:
@@ -140,15 +140,10 @@ public class PantallaDeJuego extends ScreenAdapter {
         if (offsetX > mapWidthInPixels - camera.viewportWidth) offsetX = mapWidthInPixels - camera.viewportWidth;
         if (offsetY < -mapHeightInPixels + camera.viewportHeight) offsetY = -mapHeightInPixels + camera.viewportHeight;
 
-
         if (jugador.getX() < 0) jugador.setX(0);
         if (jugador.getY() < 0) jugador.setY(0);
         if (jugador.getX() > mapWidthInPixels - jugador.getWidth()) jugador.setX(mapWidthInPixels - jugador.getWidth());
         if (jugador.getY() > mapHeightInPixels - jugador.getHeight()) jugador.setY(mapHeightInPixels - jugador.getHeight());
-
-        if(dentroMeta == 1){
-            game.setScreen((Screen) new Menu(game));
-        }
 
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;

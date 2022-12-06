@@ -20,9 +20,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Jugador extends Actor {
 
+    ImpossibleGame game;
     BitmapFont fuente;
     public int intentosPuntuacion;
     public int numMonedas, contadorMonedas;
+    public static boolean dentroMeta;
     private Texture imageJugador;
     enum VerticalMovement {UP, NONE, DOWN};
     enum HorizontalMovement {LEFT, NONE, RIGHT};
@@ -41,14 +43,16 @@ public class Jugador extends Actor {
     float ultX, ultY;
 
 
-    public Jugador(TiledMap mapa, int numMonedas) {
+    public Jugador(TiledMap mapa, int numMonedas, ImpossibleGame game) {
         if(fuente == null){
             fuente = new BitmapFont();
         }
         intentosPuntuacion = 0;
         this.mapa = mapa;
         this.numMonedas = numMonedas;
+        this.game = game;
         contadorMonedas = 0;
+        dentroMeta = false;
 
         stage = new Stage();
         imageJugador = new Texture(Gdx.files.internal("Jugador.png"));
@@ -72,6 +76,7 @@ public class Jugador extends Actor {
         batch.draw(imageJugador, getX(), getY());
         fuente.draw(batch, "Intentos: " + intentosPuntuacion, getX(), getY());
         fuente.draw(batch, "Monedas: " + contadorMonedas + " / " + numMonedas, getX() + 20, getY() + 20);
+        fuente.draw(batch, "Dentrometa: " + dentroMeta, getX() - 100, getY() + 100);
     }
 
     @Override
@@ -86,6 +91,9 @@ public class Jugador extends Actor {
         }
         if (verticalMovement == VerticalMovement.DOWN) {
             this.moveBy(0, -150 * delta);
+            if(dentroMeta == true){
+                game.setScreen(new PantallaFinal(game));
+            }
         }
         if (horizontalMovement == HorizontalMovement.LEFT) {
             this.moveBy(-150 * delta, 0);
