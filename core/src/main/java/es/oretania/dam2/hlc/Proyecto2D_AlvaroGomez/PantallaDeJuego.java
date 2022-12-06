@@ -3,6 +3,7 @@ package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapProperties;
@@ -17,35 +18,41 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class PantallaDeJuego extends ScreenAdapter {
 
-    private final ImpossibleGame game;
+    private Menu menu;
+    private ImpossibleGame game;
     private int dificultad;
-    private Screen juego;
+    public static Sound golpeMuerte;
+    public static int dentroMeta = 0;
     Stage stage;
     TiledMap mapa;
     Jugador jugador;
     Enemigo enemigo1, enemigo2, enemigo3, enemigo4;
     Monedas moneda1, moneda2;
+    Meta meta;
     Actor manager1, manager2, manager3, manager4;
     Actor manMoneda1, manMoneda2;
+    Actor manMeta;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
     MapProperties propiedades;
-    private float offsetX, offsetY;
+    public float offsetX, offsetY;
     private int mapWidthInPixels;
     private int mapHeightInPixels;
+
 
     public PantallaDeJuego(ImpossibleGame game, int dificultad){
         this.dificultad = dificultad;
         this.game = game;
         stage = new Stage();
+        golpeMuerte = Gdx.audio.newSound(Gdx.files.internal("golpeMuerte.mp3"));
 
         switch (dificultad){
             case 0:
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
+                int numMonedas = 2;
                 //Añadir jugador
-                jugador = new Jugador(mapa);
-                jugador.toFront();
+                jugador = new Jugador(mapa, numMonedas);
                 stage.addActor(jugador);
                 Gdx.input.setInputProcessor(stage);
                 stage.setKeyboardFocus(jugador);
@@ -68,13 +75,21 @@ public class PantallaDeJuego extends ScreenAdapter {
                 stage.addActor(manager3);
                 stage.addActor(manager4);
                 //Añadir monedas
-                moneda1 = new Monedas(600, 600);
+                moneda1 = new Monedas(547, 644);
+                moneda2 = new Monedas(227, 132);
                 stage.addActor(moneda1);
-
+                stage.addActor(moneda2);
                 //Añadir manager jugador-moneda
                 manMoneda1 = new ManagerMoneda(jugador, moneda1);
                 stage.addActor(manMoneda1);
-
+                manMoneda2 = new ManagerMoneda(jugador, moneda2);
+                stage.addActor(manMoneda2);
+                //Añadir meta
+                meta = new Meta(720, 40);
+                stage.addActor(meta);
+                //Añadir manager jugador-meta
+                manMeta = new ManagerMeta(jugador, meta);
+                jugador.toFront();
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
@@ -130,6 +145,10 @@ public class PantallaDeJuego extends ScreenAdapter {
         if (jugador.getY() < 0) jugador.setY(0);
         if (jugador.getX() > mapWidthInPixels - jugador.getWidth()) jugador.setX(mapWidthInPixels - jugador.getWidth());
         if (jugador.getY() > mapHeightInPixels - jugador.getHeight()) jugador.setY(mapHeightInPixels - jugador.getHeight());
+
+        if(dentroMeta == 1){
+            game.setScreen((Screen) new Menu(game));
+        }
 
         camera.position.x = camera.viewportWidth / 2 + offsetX;
         camera.position.y = mapHeightInPixels - camera.viewportHeight / 2 + offsetY;

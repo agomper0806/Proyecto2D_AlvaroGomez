@@ -22,8 +22,8 @@ public class Jugador extends Actor {
 
     BitmapFont fuente;
     public int intentosPuntuacion;
+    public int numMonedas, contadorMonedas;
     private Texture imageJugador;
-    public static float offsetX, offsetY;
     enum VerticalMovement {UP, NONE, DOWN};
     enum HorizontalMovement {LEFT, NONE, RIGHT};
     public float inicioX, inicioY;
@@ -41,12 +41,15 @@ public class Jugador extends Actor {
     float ultX, ultY;
 
 
-    public Jugador(TiledMap mapa) {
+    public Jugador(TiledMap mapa, int numMonedas) {
         if(fuente == null){
             fuente = new BitmapFont();
         }
         intentosPuntuacion = 0;
         this.mapa = mapa;
+        this.numMonedas = numMonedas;
+        contadorMonedas = 0;
+
         stage = new Stage();
         imageJugador = new Texture(Gdx.files.internal("Jugador.png"));
         jugadorWidth = imageJugador.getWidth();
@@ -59,8 +62,6 @@ public class Jugador extends Actor {
         //Size importante, si no no colisionan
         setSize(jugadorWidth, jugadorHeight);
         setPosition(inicioX, inicioY);
-        offsetX = 0;
-        offsetY = 0;
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         addListener(new JugadorInputListener());
@@ -69,7 +70,8 @@ public class Jugador extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(imageJugador, getX(), getY());
-        fuente.draw(batch, "Intentos: " + intentosPuntuacion, getX() + 300, getY() + 100);
+        fuente.draw(batch, "Intentos: " + intentosPuntuacion, getX(), getY());
+        fuente.draw(batch, "Monedas: " + contadorMonedas + " / " + numMonedas, getX() + 20, getY() + 20);
     }
 
     @Override

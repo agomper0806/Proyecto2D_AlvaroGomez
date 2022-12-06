@@ -18,7 +18,10 @@ public class ManagerMoneda extends Actor {
     public void act(float delta) {
         super.act(delta);
         if(Intersector.overlaps(jugador.getShape(), moneda.getShape())) {
-            moneda.addAction(Actions.removeActor());
+            jugador.contadorMonedas++;
+            addAction(Actions.removeActor(moneda));
+            //La mando fuera del mapa porque no se como borrarla
+            moneda.setPosition(2000, 2000);
         }
     }
 }
