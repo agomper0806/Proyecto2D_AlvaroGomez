@@ -1,6 +1,5 @@
 package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
@@ -15,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.ArrayList;
-
 
 public class PantallaDeJuego extends ScreenAdapter {
 
@@ -27,7 +24,9 @@ public class PantallaDeJuego extends ScreenAdapter {
     TiledMap mapa;
     Jugador jugador;
     Enemigo enemigo1, enemigo2, enemigo3, enemigo4;
+    Monedas moneda1, moneda2;
     Actor manager1, manager2, manager3, manager4;
+    Actor manMoneda1, manMoneda2;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
@@ -44,14 +43,13 @@ public class PantallaDeJuego extends ScreenAdapter {
         switch (dificultad){
             case 0:
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
-
+                //Añadir jugador
                 jugador = new Jugador(mapa);
                 jugador.toFront();
                 stage.addActor(jugador);
-
                 Gdx.input.setInputProcessor(stage);
                 stage.setKeyboardFocus(jugador);
-
+                //Añadir enemigos
                 enemigo1 = new Enemigo(180, 210, 1);
                 enemigo2 = new Enemigo(546, 510, 2);
                 enemigo3 = new Enemigo(50, 560, 3);
@@ -60,15 +58,23 @@ public class PantallaDeJuego extends ScreenAdapter {
                 stage.addActor(enemigo2);
                 stage.addActor(enemigo3);
                 stage.addActor(enemigo4);
-
-                manager1 = new Manager(jugador, enemigo1);
-                manager2 = new Manager(jugador, enemigo2);
-                manager3 = new Manager(jugador, enemigo3);
-                manager4 = new Manager(jugador, enemigo4);
+                //Añadir manager jugador-enemigo
+                manager1 = new ManagerEnemigo(jugador, enemigo1);
+                manager2 = new ManagerEnemigo(jugador, enemigo2);
+                manager3 = new ManagerEnemigo(jugador, enemigo3);
+                manager4 = new ManagerEnemigo(jugador, enemigo4);
                 stage.addActor(manager1);
                 stage.addActor(manager2);
                 stage.addActor(manager3);
                 stage.addActor(manager4);
+                //Añadir monedas
+                moneda1 = new Monedas(600, 600);
+                stage.addActor(moneda1);
+
+                //Añadir manager jugador-moneda
+                manMoneda1 = new ManagerMoneda(jugador, moneda1);
+                stage.addActor(manMoneda1);
+
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
