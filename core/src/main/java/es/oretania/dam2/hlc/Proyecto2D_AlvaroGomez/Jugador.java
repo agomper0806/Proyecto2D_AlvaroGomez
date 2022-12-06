@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Jugador extends Actor {
 
+    BitmapFont fuente;
+    public int intentosPuntuacion;
     private Texture imageJugador;
     public static float offsetX, offsetY;
     enum VerticalMovement {UP, NONE, DOWN};
@@ -39,6 +42,10 @@ public class Jugador extends Actor {
 
 
     public Jugador(TiledMap mapa) {
+        if(fuente == null){
+            fuente = new BitmapFont();
+        }
+        intentosPuntuacion = 0;
         this.mapa = mapa;
         stage = new Stage();
         imageJugador = new Texture(Gdx.files.internal("Jugador.png"));
@@ -62,6 +69,7 @@ public class Jugador extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(imageJugador, getX(), getY());
+        fuente.draw(batch, "Intentos: " + intentosPuntuacion, getX() + 300, getY() + 100);
     }
 
     @Override

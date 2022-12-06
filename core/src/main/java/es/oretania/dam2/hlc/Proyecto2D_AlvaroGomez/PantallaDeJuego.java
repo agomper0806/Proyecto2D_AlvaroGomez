@@ -27,7 +27,7 @@ public class PantallaDeJuego extends ScreenAdapter {
     TiledMap mapa;
     Jugador jugador;
     Enemigo enemigo1, enemigo2, enemigo3, enemigo4;
-    Actor manager1, manager2;
+    Actor manager1, manager2, manager3, manager4;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
@@ -52,16 +52,23 @@ public class PantallaDeJuego extends ScreenAdapter {
                 Gdx.input.setInputProcessor(stage);
                 stage.setKeyboardFocus(jugador);
 
-                enemigo1 = new Enemigo(300, 300, 1);
-                enemigo2 = new Enemigo(500, 400, 2);
+                enemigo1 = new Enemigo(180, 210, 1);
+                enemigo2 = new Enemigo(546, 510, 2);
+                enemigo3 = new Enemigo(50, 560, 3);
+                enemigo4 = new Enemigo(560, 370, 3);
                 stage.addActor(enemigo1);
                 stage.addActor(enemigo2);
+                stage.addActor(enemigo3);
+                stage.addActor(enemigo4);
 
                 manager1 = new Manager(jugador, enemigo1);
                 manager2 = new Manager(jugador, enemigo2);
+                manager3 = new Manager(jugador, enemigo3);
+                manager4 = new Manager(jugador, enemigo4);
                 stage.addActor(manager1);
                 stage.addActor(manager2);
-
+                stage.addActor(manager3);
+                stage.addActor(manager4);
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
