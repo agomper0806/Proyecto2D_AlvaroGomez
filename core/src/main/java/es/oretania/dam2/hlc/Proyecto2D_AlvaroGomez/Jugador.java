@@ -74,9 +74,6 @@ public class Jugador extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(imageJugador, getX(), getY());
-        fuente.draw(batch, "Intentos: " + intentosPuntuacion, getX(), getY());
-        fuente.draw(batch, "Monedas: " + contadorMonedas + " / " + numMonedas, getX() + 20, getY() + 20);
-        fuente.draw(batch, "Dentrometa: " + dentroMeta, getX() - 100, getY() + 100);
     }
 
     @Override

@@ -32,6 +32,12 @@ public class Enemigo extends Actor {
             case 3:
                 movimientoEnemigo3y4(x, y);
                 break;
+            case 5:
+                movimientoEnemigo5(x, y);
+                break;
+            case 6:
+                movimientoEnemigo6(x, y);
+                break;
         }
     }
 
@@ -82,6 +88,62 @@ public class Enemigo extends Actor {
         forever.setAction(secuencia);
         addAction(forever);
     }
+    public void movimientoEnemigo5(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y - 50);
+        move1.setDuration(0.3f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x + 192, y - 50);
+        move2.setDuration(1.152f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x + 192, y );
+        move3.setDuration(0.3f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x + 192, y - 50);
+        move4.setDuration(0.3f);
+        MoveToAction move5 = new MoveToAction();
+        move5.setPosition(x, y - 50);
+        move5.setDuration(1.152f);
+        MoveToAction move6 = new MoveToAction();
+        move6.setPosition(x, y);
+        move6.setDuration(0.3f);
+        SequenceAction secuencia1 = new SequenceAction(move1, move2, move3);
+        SequenceAction secuencia2 = new SequenceAction(move4, move5, move6);
+        SequenceAction secuencia = new SequenceAction(secuencia1, secuencia2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo6(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y + 50);
+        move1.setDuration(0.3f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x - 192, y + 50);
+        move2.setDuration(1.152f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x - 192, y );
+        move3.setDuration(0.3f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x - 192, y + 50);
+        move4.setDuration(0.3f);
+        MoveToAction move5 = new MoveToAction();
+        move5.setPosition(x, y + 50);
+        move5.setDuration(1.152f);
+        MoveToAction move6 = new MoveToAction();
+        move6.setPosition(x, y);
+        move6.setDuration(0.3f);
+        SequenceAction secuencia1 = new SequenceAction(move1, move2, move3);
+        SequenceAction secuencia2 = new SequenceAction(move4, move5, move6);
+        SequenceAction secuencia = new SequenceAction(secuencia1, secuencia2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(imageEnemigo, getX(), getY());

@@ -4,6 +4,8 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -24,55 +26,62 @@ public class PantallaDeJuego extends ScreenAdapter {
     Stage stage;
     TiledMap mapa;
     Jugador jugador;
-    Enemigo enemigo1, enemigo2, enemigo3, enemigo4;
+    Enemigo enemigoF1, enemigoF2, enemigoF3, enemigoF4;
+    Actor managerF1, managerF2, managerF3, managerF4;
+    Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4;
+    Actor managerM1, managerM2, managerM3, managerM4;
     Monedas moneda1, moneda2;
-    Meta meta;
-    Actor manager1, manager2, manager3, manager4;
     Actor manMoneda1, manMoneda2;
+    Meta meta;
     Actor manMeta;
     OrthogonalTiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     Viewport viewport;
     MapProperties propiedades;
+    SpriteBatch batch;
+    BitmapFont font;
     public float offsetX, offsetY;
     private int mapWidthInPixels;
     private int mapHeightInPixels;
+    int numMonedas;
 
 
     public PantallaDeJuego(ImpossibleGame game, int dificultad, String nick){
         this.dificultad = dificultad;
         this.game = game;
         this.nick = nick;
+        batch = new SpriteBatch();
+        font = new BitmapFont();
         stage = new Stage();
         golpeMuerte = Gdx.audio.newSound(Gdx.files.internal("golpeMuerte.mp3"));
 
         switch (dificultad){
             case 0:
                 mapa = new TmxMapLoader().load("MapaNivelFacil.tmx");
-                int numMonedas = 2;
+                numMonedas = 2;
                 //Añadir jugador
                 jugador = new Jugador(mapa, numMonedas, game);
                 stage.addActor(jugador);
                 Gdx.input.setInputProcessor(stage);
                 stage.setKeyboardFocus(jugador);
                 //Añadir enemigos
-                enemigo1 = new Enemigo(180, 210, 1);
-                enemigo2 = new Enemigo(546, 510, 2);
-                enemigo3 = new Enemigo(50, 560, 3);
-                enemigo4 = new Enemigo(560, 370, 3);
-                stage.addActor(enemigo1);
-                stage.addActor(enemigo2);
-                stage.addActor(enemigo3);
-                stage.addActor(enemigo4);
+                enemigoF1 = new Enemigo(180, 210, 1);
+                enemigoF2 = new Enemigo(546, 510, 2);
+                enemigoF3 = new Enemigo(50, 560, 3);
+                enemigoF4 = new Enemigo(560, 370, 3);
+                stage.addActor(enemigoF1);
+                stage.addActor(enemigoF2);
+                stage.addActor(enemigoF3);
+                stage.addActor(enemigoF4);
                 //Añadir manager jugador-enemigo
-                manager1 = new ManagerEnemigo(jugador, enemigo1);
-                manager2 = new ManagerEnemigo(jugador, enemigo2);
-                manager3 = new ManagerEnemigo(jugador, enemigo3);
-                manager4 = new ManagerEnemigo(jugador, enemigo4);
-                stage.addActor(manager1);
-                stage.addActor(manager2);
-                stage.addActor(manager3);
-                stage.addActor(manager4);
+                managerF1 = new ManagerEnemigo(jugador, enemigoF1);
+                managerF2 = new ManagerEnemigo(jugador, enemigoF2);
+                managerF3 = new ManagerEnemigo(jugador, enemigoF3);
+                managerF4 = new ManagerEnemigo(jugador, enemigoF4);
+                stage.addActor(managerF1);
+                stage.addActor(managerF2);
+                stage.addActor(managerF3);
+                stage.addActor(managerF4);
                 //Añadir monedas
                 moneda1 = new Monedas(547, 644);
                 moneda2 = new Monedas(227, 132);
@@ -93,6 +102,41 @@ public class PantallaDeJuego extends ScreenAdapter {
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
+                int numMonedas = 2;
+                //Añadir jugador
+                jugador = new Jugador(mapa, numMonedas, game);
+                stage.addActor(jugador);
+                Gdx.input.setInputProcessor(stage);
+                stage.setKeyboardFocus(jugador);
+                //Añadir enemigos
+                enemigoM1 = new Enemigo(307, 692, 5);
+                enemigoM2 = new Enemigo(498, 528, 6);
+                stage.addActor(enemigoM1);
+                stage.addActor(enemigoM2);
+                //Añadir manager jugador-enemigo
+                managerM1 = new ManagerEnemigo(jugador, enemigoM1);
+                managerM2 = new ManagerEnemigo(jugador, enemigoM2);
+                stage.addActor(managerM1);
+                stage.addActor(managerM2);
+                //Añadir monedas
+                moneda1 = new Monedas(307, 692);
+                moneda2 = new Monedas(498, 528);
+                stage.addActor(moneda1);
+                stage.addActor(moneda2);
+                //Añadir manager jugador-moneda
+                manMoneda1 = new ManagerMoneda(jugador, moneda1);
+                manMoneda2 = new ManagerMoneda(jugador, moneda2);
+                stage.addActor(manMoneda1);
+                stage.addActor(manMoneda2);
+                //Añadir meta
+                meta = new Meta(720, 40);
+                stage.addActor(meta);
+                //Añadir manager jugador-meta
+                manMeta = new ManagerMeta(jugador, meta);
+                stage.addActor(manMeta);
+                enemigoM1.toFront();
+                enemigoM2.toFront();
+                jugador.toFront();
                 break;
             case 2:
                 //mapa = new TmxMapLoader().load("MapaNivelDificil.tmx");
@@ -115,6 +159,7 @@ public class PantallaDeJuego extends ScreenAdapter {
         viewport = new ScreenViewport(camera);
         stage.setViewport(viewport);
     }
+
 
     @Override
     public void render(float delta) {
@@ -152,6 +197,13 @@ public class PantallaDeJuego extends ScreenAdapter {
         mapRenderer.setView(camera);
         mapRenderer.render();
         stage.draw();
+
+
+        batch.begin();
+        font.setColor(0.0f, 0.0f, 0.0f, 1.0f);
+        font.draw(batch, "Intentos: " + jugador.intentosPuntuacion, mapWidthInPixels*0.64f, mapHeightInPixels*0.58f);
+        font.draw(batch, "Monedas: " + jugador.contadorMonedas + " / " + jugador.numMonedas, mapWidthInPixels*0.64f, mapHeightInPixels*0.56f);
+        batch.end();
     }
 
     @Override
