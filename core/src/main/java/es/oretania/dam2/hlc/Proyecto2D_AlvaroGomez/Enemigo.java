@@ -38,6 +38,18 @@ public class Enemigo extends Actor {
             case 6:
                 movimientoEnemigo6(x, y);
                 break;
+            case 7:
+                movimientoEnemigo7(x, y);
+                break;
+            case 8:
+                movimientoEnemigo8(x, y);
+                break;
+            case 9:
+                movimientoEnemigo9(x, y);
+                break;
+            case 10:
+                movimientoEnemigo10(x, y);
+                break;
         }
     }
 
@@ -144,13 +156,69 @@ public class Enemigo extends Actor {
         addAction(forever);
     }
 
+    public void movimientoEnemigo7(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y + 170);
+        move1.setDuration(0.6f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(0.6f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo8(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x - 100, y);
+        move1.setDuration(0.7f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(0.7f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo9(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y - 156);
+        move1.setDuration(0.6f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(0.6f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo10(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y + 156);
+        move1.setDuration(0.6f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(0.6f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(imageEnemigo, getX(), getY());
     }
 
 
-    public Rectangle getShape() {
-        return new Rectangle(getX(), getY(), getWidth(), getHeight());
+    public Circle getShape() {
+        return new Circle(getX(), getY(), 30);
     }
 }

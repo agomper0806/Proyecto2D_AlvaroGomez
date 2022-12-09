@@ -28,10 +28,10 @@ public class PantallaDeJuego extends ScreenAdapter {
     Jugador jugador;
     Enemigo enemigoF1, enemigoF2, enemigoF3, enemigoF4;
     Actor managerF1, managerF2, managerF3, managerF4;
-    Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4;
-    Actor managerM1, managerM2, managerM3, managerM4;
-    Monedas moneda1, moneda2;
-    Actor manMoneda1, manMoneda2;
+    Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4, enemigoM5, enemigoM6;
+    Actor managerM1, managerM2, managerM3, managerM4, managerM5, managerM6;
+    Monedas moneda1, moneda2, moneda3, moneda4;
+    Actor manMoneda1, manMoneda2, manMoneda3, manMoneda4;
     Meta meta;
     Actor manMeta;
     OrthogonalTiledMapRenderer mapRenderer;
@@ -102,7 +102,7 @@ public class PantallaDeJuego extends ScreenAdapter {
                 break;
             case 1:
                 mapa = new TmxMapLoader().load("MapaNivelMedio.tmx");
-                int numMonedas = 2;
+                int numMonedas = 3;
                 //Añadir jugador
                 jugador = new Jugador(mapa, numMonedas, game);
                 stage.addActor(jugador);
@@ -111,13 +111,29 @@ public class PantallaDeJuego extends ScreenAdapter {
                 //Añadir enemigos
                 enemigoM1 = new Enemigo(307, 692, 5);
                 enemigoM2 = new Enemigo(498, 528, 6);
+                enemigoM3 = new Enemigo(210, 210, 7);
+                enemigoM4 = new Enemigo(147, 150, 8);
+                enemigoM5 = new Enemigo(595, 192, 9);
+                enemigoM6 = new Enemigo(658, 36, 10);
                 stage.addActor(enemigoM1);
                 stage.addActor(enemigoM2);
+                stage.addActor(enemigoM3);
+                stage.addActor(enemigoM4);
+                stage.addActor(enemigoM5);
+                stage.addActor(enemigoM6);
                 //Añadir manager jugador-enemigo
                 managerM1 = new ManagerEnemigo(jugador, enemigoM1);
                 managerM2 = new ManagerEnemigo(jugador, enemigoM2);
+                managerM3 = new ManagerEnemigo(jugador, enemigoM3);
+                managerM4 = new ManagerEnemigo(jugador, enemigoM4);
+                managerM5 = new ManagerEnemigo(jugador, enemigoM5);
+                managerM6 = new ManagerEnemigo(jugador, enemigoM6);
                 stage.addActor(managerM1);
                 stage.addActor(managerM2);
+                stage.addActor(managerM3);
+                stage.addActor(managerM4);
+                stage.addActor(managerM5);
+                stage.addActor(managerM6);
                 //Añadir monedas
                 moneda1 = new Monedas(307, 692);
                 moneda2 = new Monedas(498, 528);
@@ -129,7 +145,7 @@ public class PantallaDeJuego extends ScreenAdapter {
                 stage.addActor(manMoneda1);
                 stage.addActor(manMoneda2);
                 //Añadir meta
-                meta = new Meta(720, 40);
+                meta = new Meta(725, 120);
                 stage.addActor(meta);
                 //Añadir manager jugador-meta
                 manMeta = new ManagerMeta(jugador, meta);

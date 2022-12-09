@@ -18,7 +18,7 @@ public class ManagerEnemigo extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if(Intersector.overlaps(jugador.getShape(), enemigo.getShape())){
+        if(Intersector.overlaps(enemigo.getShape(), jugador.getShape())){
             PantallaDeJuego.golpeMuerte.play();
             jugador.intentosPuntuacion++;
             jugador.setX(jugador.inicioX);

@@ -85,6 +85,9 @@ public class Jugador extends Actor {
 
         if (verticalMovement == VerticalMovement.UP) {
             this.moveBy(0, 150 * delta);
+            if(dentroMeta == true){
+                game.setScreen(new PantallaFinal(game));
+            }
         }
         if (verticalMovement == VerticalMovement.DOWN) {
             this.moveBy(0, -150 * delta);
@@ -94,9 +97,15 @@ public class Jugador extends Actor {
         }
         if (horizontalMovement == HorizontalMovement.LEFT) {
             this.moveBy(-150 * delta, 0);
+            if(dentroMeta == true){
+                game.setScreen(new PantallaFinal(game));
+            }
         }
         if (horizontalMovement == HorizontalMovement.RIGHT) {
             this.moveBy(150 * delta, 0);
+            if(dentroMeta == true){
+                game.setScreen(new PantallaFinal(game));
+            }
         }
 
         //COORDENADA ABAJO IZQUIERDA
