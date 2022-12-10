@@ -18,6 +18,7 @@ public class ManagerMoneda extends Actor {
     public void act(float delta) {
         super.act(delta);
         if(Intersector.overlaps(jugador.getShape(), moneda.getShape())) {
+            PantallaDeJuego.sonidoMoneda.play();
             jugador.contadorMonedas++;
             addAction(Actions.removeActor(moneda));
             //La mando fuera del mapa porque no se como borrarla

@@ -22,7 +22,7 @@ public class PantallaDeJuego extends ScreenAdapter {
     private ImpossibleGame game;
     public static String nick;
     private int dificultad;
-    public static Sound golpeMuerte;
+    public static Sound golpeMuerte, sonidoMoneda, victoria;
     Stage stage;
     TiledMap mapa;
     Jugador jugador;
@@ -54,6 +54,8 @@ public class PantallaDeJuego extends ScreenAdapter {
         font = new BitmapFont();
         stage = new Stage();
         golpeMuerte = Gdx.audio.newSound(Gdx.files.internal("golpeMuerte.mp3"));
+        sonidoMoneda = Gdx.audio.newSound(Gdx.files.internal("monedas.mp3"));
+        victoria = Gdx.audio.newSound(Gdx.files.internal("victoria.mp3"));
 
         switch (dificultad){
             case 0:
@@ -111,39 +113,39 @@ public class PantallaDeJuego extends ScreenAdapter {
                 //Añadir enemigos
                 enemigoM1 = new Enemigo(307, 692, 5);
                 enemigoM2 = new Enemigo(498, 528, 6);
-                enemigoM3 = new Enemigo(210, 210, 7);
-                enemigoM4 = new Enemigo(147, 150, 8);
-                enemigoM5 = new Enemigo(595, 192, 9);
-                enemigoM6 = new Enemigo(658, 36, 10);
+                enemigoM3 = new Enemigo(274, 340, 7);
+                enemigoM4 = new Enemigo(595, 182, 8);
+                enemigoM5 = new Enemigo(658, 182, 9);
                 stage.addActor(enemigoM1);
                 stage.addActor(enemigoM2);
                 stage.addActor(enemigoM3);
                 stage.addActor(enemigoM4);
                 stage.addActor(enemigoM5);
-                stage.addActor(enemigoM6);
                 //Añadir manager jugador-enemigo
                 managerM1 = new ManagerEnemigo(jugador, enemigoM1);
                 managerM2 = new ManagerEnemigo(jugador, enemigoM2);
                 managerM3 = new ManagerEnemigo(jugador, enemigoM3);
                 managerM4 = new ManagerEnemigo(jugador, enemigoM4);
                 managerM5 = new ManagerEnemigo(jugador, enemigoM5);
-                managerM6 = new ManagerEnemigo(jugador, enemigoM6);
                 stage.addActor(managerM1);
                 stage.addActor(managerM2);
                 stage.addActor(managerM3);
                 stage.addActor(managerM4);
                 stage.addActor(managerM5);
-                stage.addActor(managerM6);
                 //Añadir monedas
                 moneda1 = new Monedas(307, 692);
                 moneda2 = new Monedas(498, 528);
+                moneda3 = new Monedas(145, 210);
                 stage.addActor(moneda1);
                 stage.addActor(moneda2);
+                stage.addActor(moneda3);
                 //Añadir manager jugador-moneda
                 manMoneda1 = new ManagerMoneda(jugador, moneda1);
                 manMoneda2 = new ManagerMoneda(jugador, moneda2);
+                manMoneda3 = new ManagerMoneda(jugador, moneda3);
                 stage.addActor(manMoneda1);
                 stage.addActor(manMoneda2);
+                stage.addActor(manMoneda3);
                 //Añadir meta
                 meta = new Meta(725, 120);
                 stage.addActor(meta);

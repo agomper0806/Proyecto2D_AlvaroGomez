@@ -87,24 +87,28 @@ public class Jugador extends Actor {
             this.moveBy(0, 150 * delta);
             if(dentroMeta == true){
                 game.setScreen(new PantallaFinal(game));
+                PantallaDeJuego.victoria.play();
             }
         }
         if (verticalMovement == VerticalMovement.DOWN) {
             this.moveBy(0, -150 * delta);
             if(dentroMeta == true){
                 game.setScreen(new PantallaFinal(game));
+                PantallaDeJuego.victoria.play();
             }
         }
         if (horizontalMovement == HorizontalMovement.LEFT) {
             this.moveBy(-150 * delta, 0);
             if(dentroMeta == true){
                 game.setScreen(new PantallaFinal(game));
+                PantallaDeJuego.victoria.play();
             }
         }
         if (horizontalMovement == HorizontalMovement.RIGHT) {
             this.moveBy(150 * delta, 0);
             if(dentroMeta == true){
                 game.setScreen(new PantallaFinal(game));
+                PantallaDeJuego.victoria.play();
             }
         }
 

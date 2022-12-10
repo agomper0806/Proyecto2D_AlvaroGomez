@@ -47,9 +47,6 @@ public class Enemigo extends Actor {
             case 9:
                 movimientoEnemigo9(x, y);
                 break;
-            case 10:
-                movimientoEnemigo10(x, y);
-                break;
         }
     }
 
@@ -158,12 +155,18 @@ public class Enemigo extends Actor {
 
     public void movimientoEnemigo7(float x, float y){
         MoveToAction move1 = new MoveToAction();
-        move1.setPosition(x, y + 170);
-        move1.setDuration(0.6f);
+        move1.setPosition(x - 225, y);
+        move1.setDuration(0.7f);
         MoveToAction move2 = new MoveToAction();
-        move2.setPosition(x, y);
-        move2.setDuration(0.6f);
-        SequenceAction secuencia = new SequenceAction(move1, move2);
+        move2.setPosition(x - 225, y - 260);
+        move2.setDuration(0.8f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x, y - 260);
+        move3.setDuration(0.7f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x, y);
+        move4.setDuration(0.8f);
+        SequenceAction secuencia = new SequenceAction(move1, move2, move3, move4);
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
         forever.setAction(secuencia);
@@ -172,12 +175,18 @@ public class Enemigo extends Actor {
 
     public void movimientoEnemigo8(float x, float y){
         MoveToAction move1 = new MoveToAction();
-        move1.setPosition(x - 100, y);
-        move1.setDuration(0.7f);
+        move1.setPosition(x - 255, y);
+        move1.setDuration(0.8f);
         MoveToAction move2 = new MoveToAction();
-        move2.setPosition(x, y);
-        move2.setDuration(0.7f);
-        SequenceAction secuencia = new SequenceAction(move1, move2);
+        move2.setPosition(x - 255, y - 135);
+        move2.setDuration(0.42f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x, y - 135);
+        move3.setDuration(0.8f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x, y);
+        move4.setDuration(0.42f);
+        SequenceAction secuencia = new SequenceAction(move1, move2, move3, move4);
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
         forever.setAction(secuencia);
@@ -186,11 +195,11 @@ public class Enemigo extends Actor {
 
     public void movimientoEnemigo9(float x, float y){
         MoveToAction move1 = new MoveToAction();
-        move1.setPosition(x, y - 156);
-        move1.setDuration(0.6f);
+        move1.setPosition(x, y - 135);
+        move1.setDuration(0.8f);
         MoveToAction move2 = new MoveToAction();
         move2.setPosition(x, y);
-        move2.setDuration(0.6f);
+        move2.setDuration(0.8f);
         SequenceAction secuencia = new SequenceAction(move1, move2);
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
@@ -198,19 +207,6 @@ public class Enemigo extends Actor {
         addAction(forever);
     }
 
-    public void movimientoEnemigo10(float x, float y){
-        MoveToAction move1 = new MoveToAction();
-        move1.setPosition(x, y + 156);
-        move1.setDuration(0.6f);
-        MoveToAction move2 = new MoveToAction();
-        move2.setPosition(x, y);
-        move2.setDuration(0.6f);
-        SequenceAction secuencia = new SequenceAction(move1, move2);
-        RepeatAction forever = new RepeatAction();
-        forever.setCount(RepeatAction.FOREVER);
-        forever.setAction(secuencia);
-        addAction(forever);
-    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -218,7 +214,7 @@ public class Enemigo extends Actor {
     }
 
 
-    public Circle getShape() {
-        return new Circle(getX(), getY(), 30);
+    public Rectangle getShape() {
+        return new Rectangle(getX(), getY(), getWidth(), getHeight());
     }
 }
