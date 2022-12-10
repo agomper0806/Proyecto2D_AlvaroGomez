@@ -2,16 +2,13 @@ package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -86,28 +83,28 @@ public class Jugador extends Actor {
         if (verticalMovement == VerticalMovement.UP) {
             this.moveBy(0, 150 * delta);
             if(dentroMeta == true){
-                game.setScreen(new PantallaFinal(game));
+                game.setScreen(new PantallaFinal(game, intentosPuntuacion));
                 PantallaDeJuego.victoria.play();
             }
         }
         if (verticalMovement == VerticalMovement.DOWN) {
             this.moveBy(0, -150 * delta);
             if(dentroMeta == true){
-                game.setScreen(new PantallaFinal(game));
+                game.setScreen(new PantallaFinal(game, intentosPuntuacion));
                 PantallaDeJuego.victoria.play();
             }
         }
         if (horizontalMovement == HorizontalMovement.LEFT) {
             this.moveBy(-150 * delta, 0);
             if(dentroMeta == true){
-                game.setScreen(new PantallaFinal(game));
+                game.setScreen(new PantallaFinal(game, intentosPuntuacion));
                 PantallaDeJuego.victoria.play();
             }
         }
         if (horizontalMovement == HorizontalMovement.RIGHT) {
             this.moveBy(150 * delta, 0);
             if(dentroMeta == true){
-                game.setScreen(new PantallaFinal(game));
+                game.setScreen(new PantallaFinal(game, intentosPuntuacion));
                 PantallaDeJuego.victoria.play();
             }
         }

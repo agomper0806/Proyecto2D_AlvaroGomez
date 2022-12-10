@@ -3,7 +3,6 @@ package es.oretania.dam2.hlc.Proyecto2D_AlvaroGomez;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,13 +24,10 @@ public class Menu extends ScreenAdapter {
     private SpriteBatch batch;
     private String dificultad;
     private Texture fondoPantallaInicio;
-    private Sound musicaJuego;
 
     public Menu(ImpossibleGame game) {
         this.game = game;
         stage = new Stage(new ScreenViewport());
-        musicaJuego = Gdx.audio.newSound(Gdx.files.internal("music.mp3"));
-        musicaJuego.loop(1);
 
         //Título
         Label titulo = new Label("Impossible Game", game.gameSkin, "default");

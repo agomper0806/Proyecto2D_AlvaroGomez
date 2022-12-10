@@ -26,12 +26,19 @@ public class PantallaDeJuego extends ScreenAdapter {
     Stage stage;
     TiledMap mapa;
     Jugador jugador;
+    //Enemigos facil
     Enemigo enemigoF1, enemigoF2, enemigoF3, enemigoF4;
     Actor managerF1, managerF2, managerF3, managerF4;
-    Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4, enemigoM5, enemigoM6;
-    Actor managerM1, managerM2, managerM3, managerM4, managerM5, managerM6;
+    //Enemigos medio
+    Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4, enemigoM5;
+    Actor managerM1, managerM2, managerM3, managerM4, managerM5;
+    //Enemigos dificil
+    Enemigo enemigoD1, enemigoD2, enemigoD3, enemigoD4, enemigoD5;
+    Actor managerD1, managerD2, managerD3, managerD4, managerD5;
+    //Monedas
     Monedas moneda1, moneda2, moneda3, moneda4;
     Actor manMoneda1, manMoneda2, manMoneda3, manMoneda4;
+    //Meta
     Meta meta;
     Actor manMeta;
     OrthogonalTiledMapRenderer mapRenderer;
@@ -157,7 +164,27 @@ public class PantallaDeJuego extends ScreenAdapter {
                 jugador.toFront();
                 break;
             case 2:
-                //mapa = new TmxMapLoader().load("MapaNivelDificil.tmx");
+                mapa = new TmxMapLoader().load("MapaNivelDificil.tmx");
+                numMonedas = 4;
+                //Añadir jugador
+                jugador = new Jugador(mapa, numMonedas, game);
+                stage.addActor(jugador);
+                Gdx.input.setInputProcessor(stage);
+                stage.setKeyboardFocus(jugador);
+                //Añadir enemigos
+                enemigoD1 = new Enemigo(115, 660, 10);
+                enemigoD2 = new Enemigo(243, 188, 11);
+                enemigoD3 = new Enemigo(500, 188, 12);
+                stage.addActor(enemigoD1);
+                stage.addActor(enemigoD2);
+                stage.addActor(enemigoD3);
+                //Añadir manager jugador-enemigo
+                managerD1 = new ManagerEnemigo(jugador, enemigoD1);
+                managerD2 = new ManagerEnemigo(jugador, enemigoD2);
+                managerD3 = new ManagerEnemigo(jugador, enemigoD3);
+                stage.addActor(managerD1);
+                stage.addActor(managerD2);
+                stage.addActor(managerD3);
                 break;
         }
         propiedades = mapa.getProperties();

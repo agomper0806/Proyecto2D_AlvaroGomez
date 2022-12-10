@@ -8,9 +8,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 
 public class Enemigo extends Actor {
 
@@ -23,6 +21,7 @@ public class Enemigo extends Actor {
         setPosition(x, y);
 
         switch (codigoEnemigo){
+            //NIVEL FACIL
             case 1:
                 movimientoEnemigo1(x, y);
                 break;
@@ -32,6 +31,7 @@ public class Enemigo extends Actor {
             case 3:
                 movimientoEnemigo3y4(x, y);
                 break;
+            //NIVEL MEDIO
             case 5:
                 movimientoEnemigo5(x, y);
                 break;
@@ -46,6 +46,16 @@ public class Enemigo extends Actor {
                 break;
             case 9:
                 movimientoEnemigo9(x, y);
+                break;
+            //NIVEL DIFICIL
+            case 10:
+                movimientoEnemigo10(x, y);
+                break;
+            case 11:
+                movimientoEnemigo11(x, y);
+                break;
+            case 12:
+                movimientoEnemigo12(x, y);
                 break;
         }
     }
@@ -204,6 +214,49 @@ public class Enemigo extends Actor {
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
         forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo10(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y - 560);
+        move1.setDuration(1.5f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(1.5f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo11(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x, y - 150);
+        move1.setDuration(1f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(1f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo12(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x - 100, y + 100);
+        move1.setDuration(1f);
+        move1.setInterpolation(Interpolation.sine);
+        RotateToAction rotate = new RotateToAction();
+        rotate.setRotation(-180);
+        rotate.setDuration(1f);
+        ParallelAction paralelo = new ParallelAction(move1, rotate);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(rotate);
         addAction(forever);
     }
 

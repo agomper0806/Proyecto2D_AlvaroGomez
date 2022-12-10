@@ -16,13 +16,15 @@ public class PantallaFinal extends ScreenAdapter {
     ImpossibleGame game;
     Stage stage;
     Texture fondoPantalla;
+    private int intentos;
 
-    public PantallaFinal(ImpossibleGame game){
+    public PantallaFinal(ImpossibleGame game, int intentos){
         this.game = game;
+        this.intentos = intentos;
         stage = new Stage(new ScreenViewport());
 
         //Título
-        Label titulo = new Label("Felicidades " + PantallaDeJuego.nick + "\n, has ganado!!!\nPulsa INTRO para ir al menu.", game.gameSkin, "default");
+        Label titulo = new Label("Felicidades " + PantallaDeJuego.nick + ",\nhas ganado en\n" + intentos + " intentos!!!\nPulsa INTRO para ir al menu.", game.gameSkin, "default");
         titulo.setAlignment(Align.center);
         titulo.setPosition(Gdx.graphics.getWidth() / 2 - titulo.getWidth() / 2,
                 Gdx.graphics.getHeight() * 2 / 3 - titulo.getHeight() / 2);
