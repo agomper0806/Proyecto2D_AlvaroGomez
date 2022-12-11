@@ -33,8 +33,8 @@ public class PantallaDeJuego extends ScreenAdapter {
     Enemigo enemigoM1, enemigoM2, enemigoM3, enemigoM4, enemigoM5;
     Actor managerM1, managerM2, managerM3, managerM4, managerM5;
     //Enemigos dificil
-    Enemigo enemigoD1, enemigoD2, enemigoD3, enemigoD4, enemigoD5;
-    Actor managerD1, managerD2, managerD3, managerD4, managerD5;
+    Enemigo enemigoD1, enemigoD2, enemigoD3, enemigoD4, enemigoD5, enemigoD6, enemigoD7, enemigoD8, enemigoD9, enemigoD10, enemigoD11, enemigoD12, enemigoD13, enemigoD14, enemigoD15;
+    Actor managerD1, managerD2, managerD3, managerD4, managerD5, managerD6, managerD7, managerD8, managerD9, managerD10, managerD11, managerD12, managerD13, managerD14, managerD15;
     //Monedas
     Monedas moneda1, moneda2, moneda3, moneda4;
     Actor manMoneda1, manMoneda2, manMoneda3, manMoneda4;
@@ -174,17 +174,94 @@ public class PantallaDeJuego extends ScreenAdapter {
                 //Añadir enemigos
                 enemigoD1 = new Enemigo(115, 660, 10);
                 enemigoD2 = new Enemigo(243, 188, 11);
-                enemigoD3 = new Enemigo(500, 188, 12);
+                enemigoD3 = new Enemigo(370, 149, 12);
+                enemigoD4 = new Enemigo(720, 94, 13);
+                enemigoD5 = new Enemigo(370, 39, 12);
+                enemigoD6 = new Enemigo(370, 273, 14);
+                enemigoD7 = new Enemigo(370, 373, 14);
+                enemigoD8 = new Enemigo(720, 323, 15);
+                enemigoD9 = new Enemigo(720, 423, 15);
+                enemigoD10 = new Enemigo(355, 738, 16);
+                enemigoD11 = new Enemigo(355, 638, 16);
+                enemigoD12 = new Enemigo(471, 738, 16);
+                enemigoD13 = new Enemigo(471, 638, 16);
+                enemigoD14 = new Enemigo(587, 738, 16);
+                enemigoD15 = new Enemigo(587, 638, 16);
                 stage.addActor(enemigoD1);
                 stage.addActor(enemigoD2);
                 stage.addActor(enemigoD3);
+                stage.addActor(enemigoD4);
+                stage.addActor(enemigoD5);
+                stage.addActor(enemigoD6);
+                stage.addActor(enemigoD7);
+                stage.addActor(enemigoD8);
+                stage.addActor(enemigoD9);
+                stage.addActor(enemigoD10);
+                stage.addActor(enemigoD11);
+                stage.addActor(enemigoD12);
+                stage.addActor(enemigoD13);
+                stage.addActor(enemigoD14);
+                stage.addActor(enemigoD15);
                 //Añadir manager jugador-enemigo
                 managerD1 = new ManagerEnemigo(jugador, enemigoD1);
                 managerD2 = new ManagerEnemigo(jugador, enemigoD2);
                 managerD3 = new ManagerEnemigo(jugador, enemigoD3);
+                managerD4 = new ManagerEnemigo(jugador, enemigoD4);
+                managerD5 = new ManagerEnemigo(jugador, enemigoD5);
+                managerD6 = new ManagerEnemigo(jugador, enemigoD6);
+                managerD7 = new ManagerEnemigo(jugador, enemigoD7);
+                managerD8 = new ManagerEnemigo(jugador, enemigoD8);
+                managerD9 = new ManagerEnemigo(jugador, enemigoD9);
+                managerD10 = new ManagerEnemigo(jugador, enemigoD10);
+                managerD11 = new ManagerEnemigo(jugador, enemigoD11);
+                managerD12 = new ManagerEnemigo(jugador, enemigoD12);
+                managerD13 = new ManagerEnemigo(jugador, enemigoD13);
+                managerD14 = new ManagerEnemigo(jugador, enemigoD14);
+                managerD15 = new ManagerEnemigo(jugador, enemigoD15);
                 stage.addActor(managerD1);
                 stage.addActor(managerD2);
                 stage.addActor(managerD3);
+                stage.addActor(managerD4);
+                stage.addActor(managerD5);
+                stage.addActor(managerD6);
+                stage.addActor(managerD7);
+                stage.addActor(managerD8);
+                stage.addActor(managerD9);
+                stage.addActor(managerD10);
+                stage.addActor(managerD11);
+                stage.addActor(managerD12);
+                stage.addActor(managerD13);
+                stage.addActor(managerD14);
+                stage.addActor(managerD15);
+                //Añadir monedas
+                moneda1 = new Monedas(245, 135);
+                moneda2 = new Monedas(370, 149);
+                moneda3 = new Monedas(720, 39);
+                moneda4 = new Monedas(355, 738);
+                stage.addActor(moneda1);
+                stage.addActor(moneda2);
+                stage.addActor(moneda3);
+                stage.addActor(moneda4);
+                //Añadir manager jugador-moneda
+                manMoneda1 = new ManagerMoneda(jugador, moneda1);
+                manMoneda2 = new ManagerMoneda(jugador, moneda2);
+                manMoneda3 = new ManagerMoneda(jugador, moneda3);
+                manMoneda4 = new ManagerMoneda(jugador, moneda4);
+                stage.addActor(manMoneda1);
+                stage.addActor(manMoneda2);
+                stage.addActor(manMoneda3);
+                stage.addActor(manMoneda4);
+                //Añadir meta
+                meta = new Meta(725, 720);
+                stage.addActor(meta);
+                //Añadir manager jugador-meta
+                manMeta = new ManagerMeta(jugador, meta);
+                stage.addActor(manMeta);
+                enemigoD2.toFront();
+                enemigoD3.toFront();
+                enemigoD5.toFront();
+                enemigoD10.toFront();
+                jugador.toFront();
                 break;
         }
         propiedades = mapa.getProperties();

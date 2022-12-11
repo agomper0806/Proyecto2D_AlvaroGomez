@@ -19,7 +19,7 @@ public class ManagerEnemigo extends Actor {
     public void act(float delta) {
         super.act(delta);
         if(Intersector.overlaps(enemigo.getShape(), jugador.getShape())){
-            PantallaDeJuego.golpeMuerte.play();
+            PantallaDeJuego.golpeMuerte.play(0.5f);
             jugador.intentosPuntuacion++;
             jugador.setX(jugador.inicioX);
             jugador.setY(jugador.inicioY);

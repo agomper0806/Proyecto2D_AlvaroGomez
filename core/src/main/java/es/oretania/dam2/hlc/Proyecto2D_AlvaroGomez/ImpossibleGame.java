@@ -23,7 +23,7 @@ public class ImpossibleGame extends Game {
         shapeRenderer = new ShapeRenderer();
         gameSkin = new Skin(Gdx.files.internal("quantum-horizon/skin/quantum-horizon-ui.json"));
         musicaJuego = Gdx.audio.newSound(Gdx.files.internal("music.mp3"));
-        musicaJuego.loop(1);
+        musicaJuego.loop(0.5f);
         setScreen(new Menu(this));
     }
 

@@ -103,8 +103,7 @@ public class Menu extends ScreenAdapter {
         btnInst.addListener(new InputListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
-                //hacer instrucciones
+                game.setScreen(new Instrucciones(game));
             }
 
             @Override

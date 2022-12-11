@@ -57,6 +57,18 @@ public class Enemigo extends Actor {
             case 12:
                 movimientoEnemigo12(x, y);
                 break;
+            case 13:
+                movimientoEnemigo13(x, y);
+                break;
+            case 14:
+                movimientoEnemigo14(x, y);
+                break;
+            case 15:
+                movimientoEnemigo15(x, y);
+                break;
+            case 16:
+                movimientoEnemigo16(x, y);
+                break;
         }
     }
 
@@ -234,10 +246,10 @@ public class Enemigo extends Actor {
     public void movimientoEnemigo11(float x, float y){
         MoveToAction move1 = new MoveToAction();
         move1.setPosition(x, y - 150);
-        move1.setDuration(1f);
+        move1.setDuration(1.2f);
         MoveToAction move2 = new MoveToAction();
         move2.setPosition(x, y);
-        move2.setDuration(1f);
+        move2.setDuration(1.2f);
         SequenceAction secuencia = new SequenceAction(move1, move2);
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
@@ -247,16 +259,89 @@ public class Enemigo extends Actor {
 
     public void movimientoEnemigo12(float x, float y){
         MoveToAction move1 = new MoveToAction();
-        move1.setPosition(x - 100, y + 100);
-        move1.setDuration(1f);
-        move1.setInterpolation(Interpolation.sine);
-        RotateToAction rotate = new RotateToAction();
-        rotate.setRotation(-180);
-        rotate.setDuration(1f);
-        ParallelAction paralelo = new ParallelAction(move1, rotate);
+        move1.setPosition(x + 350, y);
+        move1.setDuration(1.3f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(1.3f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
         RepeatAction forever = new RepeatAction();
         forever.setCount(RepeatAction.FOREVER);
-        forever.setAction(rotate);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo13(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x - 350, y);
+        move1.setDuration(1.3f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x, y);
+        move2.setDuration(1.3f);
+        SequenceAction secuencia = new SequenceAction(move1, move2);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo14(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x + 350, y);
+        move1.setDuration(1.7f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x + 350, y + 50);
+        move2.setDuration(0.24f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x, y + 50);
+        move3.setDuration(1.7f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x, y);
+        move4.setDuration(0.24f);
+        SequenceAction secuencia = new SequenceAction(move1, move2, move3, move4);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo15(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x - 350, y);
+        move1.setDuration(1.7f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x - 350, y - 50);
+        move2.setDuration(0.24f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x, y - 50);
+        move3.setDuration(1.7f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x, y);
+        move4.setDuration(0.24f);
+        SequenceAction secuencia = new SequenceAction(move1, move2, move3, move4);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
+        addAction(forever);
+    }
+
+    public void movimientoEnemigo16(float x, float y){
+        MoveToAction move1 = new MoveToAction();
+        move1.setPosition(x + 85, y);
+        move1.setDuration(0.7f);
+        MoveToAction move2 = new MoveToAction();
+        move2.setPosition(x + 85, y - 85);
+        move2.setDuration(0.7f);
+        MoveToAction move3 = new MoveToAction();
+        move3.setPosition(x, y - 85);
+        move3.setDuration(0.7f);
+        MoveToAction move4 = new MoveToAction();
+        move4.setPosition(x, y);
+        move4.setDuration(0.7f);
+        SequenceAction secuencia = new SequenceAction(move1, move2, move3, move4);
+        RepeatAction forever = new RepeatAction();
+        forever.setCount(RepeatAction.FOREVER);
+        forever.setAction(secuencia);
         addAction(forever);
     }
 
